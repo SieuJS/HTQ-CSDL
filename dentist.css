@@ -1,0 +1,57 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f4f4f4;
+  }
+  
+  h2 {
+	color: #333;
+  }
+  
+  button {
+	padding: 10px 20px;
+	font-size: 16px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+  }
+  
+  form {
+	margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  input[type="submit"] {
+	padding: 8px;
+	margin: 5px;
+	font-size: 14px;
+  }
+  
+  #addPatientMedicalRecordResult {
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+  }
+  
+  #checkAppointmentsListByDateResult {
+	background-color: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+  }
+  
+
+  #searchServiceForm,
+  #searchDrugForm {
+	display: none;
+  }
+
+  #addServiceResult {
+	color: rgb(217, 22, 22);
+  }
+  #addDrugResult {
+	color: rgb(217, 22, 22);
+  }
