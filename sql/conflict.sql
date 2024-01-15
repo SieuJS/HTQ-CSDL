@@ -57,4 +57,21 @@ BEGIN
 
 END
 
--- giai quyet : set isolate lever uncommited read
+-- giai quyet : set isolate lever  read committed
+
+-- Loi dirty read 
+create proc proc_TimBacSiRanhConflict
+@appointmentDate date,
+@appointmentTime time(7)
+As 
+Begin	
+	Set transaction isolation level read uncommitted
+	SELECT d.dentistUserName, d.dentistFullName
+	FROM Dentist d JOIN workSchedule ws ON d.dentistUserName = ws.dentistUserName
+	WHERE ws.workingDate = @appointmentDate
+		AND ws.startTime <= @appointmentTime
+		AND ws.endTime > @appointmentTime
+		AND ws.busyStatus = 'Free'
+End 
+GO
+-- giai quyet : set isolate level read commited
