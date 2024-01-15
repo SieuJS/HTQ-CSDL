@@ -1,0 +1,2 @@
+exec proc_LayDanhSachBenhNhan
+
