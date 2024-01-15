@@ -1,4 +1,5 @@
 drop proc if exists proc_XuatThuocConflict
+GO
 create proc proc_XuatThuocConflict
 @medicalRecId int ,@drugId int, @quantity int 
 AS 
@@ -25,6 +26,7 @@ BEGIN
 END
 
 drop proc if exists proc_NhapKhoThuoc
+GO
 create proc proc_NhapKhoThuoc 
 @drugID int , @addNumber int 
 AS 

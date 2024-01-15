@@ -21,7 +21,7 @@ Begin
   End
   Commit tran 
 End 
-
+Go
 drop proc if exists proc_LayDanhSachThuoc
 go 
 create proc proc_LayDanhSachThuoc
