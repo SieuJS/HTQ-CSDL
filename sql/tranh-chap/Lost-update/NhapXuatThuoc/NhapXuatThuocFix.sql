@@ -1,4 +1,5 @@
 drop proc if exists proc_NhapKhoThuoc
+GO
 @drugID int , @addNumber int 
 AS 
 Begin 
@@ -18,6 +19,8 @@ Begin
 End
 
 drop proc if exists proc_XuatThuoc
+GO
+create proc proc_XuatThuoc
 @medicalRecId int ,@drugId int, @quantity int 
 AS 
 BEGIN 
