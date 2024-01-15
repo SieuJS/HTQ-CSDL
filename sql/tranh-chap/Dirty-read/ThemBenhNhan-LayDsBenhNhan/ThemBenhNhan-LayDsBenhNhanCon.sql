@@ -21,7 +21,7 @@ BEGIN
 			Rollback tran
 		End catch
 END 
-
+GO
 drop proc if exists proc_DangKyThongTinKhachHang
 GO
 
@@ -58,7 +58,7 @@ begin
 		rollback tran
 	end catch
 end 
-
+GO
 drop proc if not exists proc_LayDanhSachBenhNhan
 create proc [dbo].[proc_LayDanhSachBenhNhan]
 AS 

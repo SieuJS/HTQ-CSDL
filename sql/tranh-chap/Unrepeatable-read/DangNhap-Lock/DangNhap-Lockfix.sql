@@ -1,3 +1,5 @@
+drop proc if exists proc_DangNhap
+GO
 create proc  proc_DangNhap @username char(255) , @password char(255)
 As
 Begin
@@ -8,7 +10,7 @@ Begin
 	and accountType != 'Lock'
 End 
 
-
+Go
 drop proc if exists proc_KhoaTaiKhoan
 GO
 create proc proc_KhoaTaiKhoan

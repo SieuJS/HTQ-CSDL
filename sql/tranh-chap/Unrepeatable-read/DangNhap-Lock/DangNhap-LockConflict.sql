@@ -1,4 +1,5 @@
-
+drop proc if exists proc_DangNhapConflict
+GO
 create proc  proc_DangNhapConflict @username char(255) , @password char(255)
 As
 Begin
