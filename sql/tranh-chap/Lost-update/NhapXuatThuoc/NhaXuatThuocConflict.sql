@@ -3,7 +3,7 @@ create proc proc_XuatThuocConflict
 @medicalRecId int ,@drugId int, @quantity int 
 AS 
 BEGIN 
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 	if not exists (select * from Drug Where drugId = @drugId ) 
 	begin 
 		return;
@@ -30,7 +30,7 @@ create proc proc_NhapKhoThuoc
 AS 
 Begin 
 	-- kiem tra ton tai cua id thuoc
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+	SET TRANSACTION ISOLATION LEVEL READ COMMITTED
 	if not exists (select * from Drug Where drugId = @drugId ) 
 	begin 
 		return;
@@ -42,7 +42,6 @@ Begin
 		Begin Tran;
 		WAITFOR DELAY '00:00:05';
 		Update Drug set stockNumber = @newStock where drugId = @drugID;
-		select * from drug
 		Commit Tran;
 	End Try
 	Begin Catch 

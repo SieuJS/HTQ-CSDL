@@ -1,4 +1,4 @@
-drop proc if not exists proc_XuatThuoc
+drop proc if  exists proc_XuatThuoc
 GO
 create Proc [dbo].[proc_XuatThuoc]
 @medicalRecId int ,@drugId int, @quantity int 
@@ -29,7 +29,8 @@ BEGIN
 			
 			Insert into patientDrugs values (@medicalRecId, @drugId, @quantity);
 			WAITFOR DELAY '00:00:03';
-			Update Drug set stockNumber = @newStock where drugId = @drugID
+			Update Drug set stockNumber = @newStock where drugId = @drugID;
+			select * from patientDrugs Where drugId = @drugId and  medicalRecordId = @medicalRecId
 		End Try
 		Begin Catch 
 			Print Error_Number();
@@ -43,6 +44,7 @@ Go
 
 Drop proc if exists proc_XoaThuoc 
 GO
+create proc proc_XoaThuoc
 @drugId char(255)
 As 
 Begin

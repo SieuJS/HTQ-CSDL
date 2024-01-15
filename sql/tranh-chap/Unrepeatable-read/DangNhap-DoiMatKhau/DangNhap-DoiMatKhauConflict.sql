@@ -11,7 +11,7 @@ Begin
 		Print 'Tai khoan khong dung'
 		Return 1
 	End
-	Waitfor Delay '00:00:3';
+	Waitfor Delay '00:00:03';
 	
 	Select * from Account where username = @username and password = @password
 	and accountType != 'Lock'

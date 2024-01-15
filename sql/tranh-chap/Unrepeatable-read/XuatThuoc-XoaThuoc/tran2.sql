@@ -1,7 +1,5 @@
-delete patientDrugs where medicalRecordId = '3' and drugId = '1'
+declare @drugId int;
+set @drugId = (select top 1 drugId from Drug Order by drugId desc)
+ 
 
-select * from Drug where drugId = '1'
-
-exec proc_XuatThuoc '3', '1' , '10'
-
-select * from Drug where drugId = '1'
+ exec proc_XoaThuoc @drugId
