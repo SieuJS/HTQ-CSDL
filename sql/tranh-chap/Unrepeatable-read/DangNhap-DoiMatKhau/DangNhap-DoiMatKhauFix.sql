@@ -5,10 +5,18 @@ As
 Begin
 	-- Kiem tra ton tai tai khong trong he thong hay khong 
 	Begin tran
+	
 	IF (not exists (Select * from Account  with (UPDLOCK)
-	Where username = @username and password = @password and accountType != 'Lock'))
+	Where username = @username and password = @password))
 	Begin
 		Print 'Tai khoan khong dung'
+		Rollback tran
+		Return 1
+	End
+	IF (not exists (Select * from Account  with (UPDLOCK)
+	Where username = @username  and accountType != 'Lock'))
+	Begin
+		Print 'Tai khoan bi khoa'
 		Rollback tran
 		Return 1
 	End
@@ -17,7 +25,6 @@ Begin
 	and accountType != 'Lock'
 	Commit tran
 End 
-
 Go
 
 
