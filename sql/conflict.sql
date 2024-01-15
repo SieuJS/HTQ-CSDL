@@ -1,3 +1,5 @@
+
+-- unrepeatable 2 loi
 drop proc if exists proc_DangNhapConflict
 drop proc if exists proc_DoiMatKhauConflict
 
@@ -11,6 +13,7 @@ Begin
 	Waitfor Delay '00:00:10';
 	
 	Select * from Account where username = @username and password = @password
+	Return 0
 End 
 GO
 
@@ -29,7 +32,29 @@ Begin
 End 
 GO 
 
+drop proc if exists proc_KhoaTaiKhoan
+GO
+create proc proc_KhoaTaiKhoan
+@username char(255)
+As
+Begin
+	if not exists (select * from Account where username = @username)
+	Begin 
+		Print 'Tài khoản không tồn tại'
+		Return 1
+	End
+	Update Account 
+	Set accountType = 'Lock'
+	Where username = @username
+	Print 'Khoá thành công'
+	Return 0;
+End
+
+create proc proc_KhoaTaiKhoan
+
 -- Giai quyet : Trong dang nhap thi rut lai con 1 giao tac
+
+-- lost update 2 loi 
 
 create proc proc_XuatThuocConflict
 @medicalRecId int ,@drugId int, @quantity int 
@@ -59,7 +84,59 @@ END
 
 -- giai quyet : set isolate lever  read committed
 
--- Loi dirty read 
+-- Loi dirty read 2 loi
+drop if exists proc_ThemLichLamViec
+create proc proc_ThemLichLamViec 
+@dentistUsername char(30),
+@workingDate date , 
+@startTime time,
+@endTime time
+As 
+Begin
+
+		Begin tran
+		insert workSchedule 
+		values (@dentistUsername, @workingDate, @startTime, @endTime, 'Free');
+		WAITFOR DELAY '00:00:05';
+		if (cast(datediff(hh,cast(@startTime as datetime), cast(@endTime as datetime)) as int) > 8)
+		Begin
+			Print 'không thể làm việc hơn 8 tiếng'
+			Rollback tran 
+			Return 1
+		End
+		Commit tran
+End 
+
+drop proc if exists proc_SuaLichLamViec
+create proc proc_SuaLichLamViec
+@dentistUsername char(30),
+@scheduleId int = NULL ,
+@workingDate date , 
+@startTime time,
+@endTime time,
+@busyStatus char(10)  =NULL
+As 
+Begin
+
+		Begin tran
+		Update workSchedule 
+		Set workingDate = IsNull(@workingDate, workingDate ), 
+			startTime = IsNull( @startTime , startTime),
+			endTime = IsNull(@endTime , endTime), 
+			busyStatus = IsNull(@busyStatus, busyStatus)
+		Where dentistUserName = @dentistUsername and scheduleId = @scheduleId
+		WAITFOR DELAY '00:00:05';
+		if (cast(datediff(hh,cast(@startTime as datetime), cast(@endTime as datetime)) as int) > 8)
+		Begin
+			Print 'không thể làm việc hơn 8 tiếng'
+			Rollback tran 
+			Return 1
+		End
+		Commit tran
+End 
+
+
+drop proc if exists proc_TimBacSiRanhConflict
 create proc proc_TimBacSiRanhConflict
 @appointmentDate date,
 @appointmentTime time(7)
