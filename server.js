@@ -495,8 +495,7 @@ app.post('/Login', async function(req, res) {
       request.input('username', sql.Char, username);
       request.input('password', sql.Char, password);
       const result = await request.execute('proc_DangNhap');
-      
-      if (result.recordset[0]) {
+      if (result.recordset && result.recordset[0] ) {
         let accountType = result.recordset[0].accountType.trim();
         if (accountType === 'Admin') {
             res.status(200).json('Admin');

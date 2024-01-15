@@ -54,33 +54,8 @@ create proc proc_KhoaTaiKhoan
 
 -- Giai quyet : Trong dang nhap thi rut lai con 1 giao tac
 
--- lost update 2 loi 
+-- lost update 1 loi 
 
-create proc proc_XuatThuocConflict
-@medicalRecId int ,@drugId int, @quantity int 
-AS 
-BEGIN 
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
-	if not exists (select * from Drug Where drugId = @drugId ) 
-	begin 
-		return;
-	end
-	declare @currentInstock int = 
-	(select stockNumber from Drug Where drugId = @drugID);
-	declare @newStock int = @currentInstock - @quantity;
-	Begin try 
-		Begin Tran
-		Insert into patientDrugs values (@medicalRecId, @drugId, @quantity);  
-		Update Drug set stockNumber = @newStock where drugId = @drugID;
-		Commit Tran;
-	End Try
-	Begin Catch 
-		Print Error_Number();
-		Print Error_Message();
-		Rollback Tran;
-	End Catch
-
-END
 
 -- giai quyet : set isolate lever  read committed
 
@@ -152,3 +127,4 @@ Begin
 End 
 GO
 -- giai quyet : set isolate level read commited
+
