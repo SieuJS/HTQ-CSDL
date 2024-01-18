@@ -20,10 +20,10 @@ Begin
 		End
 		Commit tran
 End 
-
-drop proc if exists proc_TimBacSiRanhConflict
+Go
+drop proc if exists proc_TimBacSiRanh
 GO
-create proc proc_TimBacSiRanhConflict
+create proc proc_TimBacSiRanh
 @appointmentDate date,
 @appointmentTime time(7)
 As 

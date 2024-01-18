@@ -26,15 +26,15 @@ Begin
 		End
 		Commit tran
 End 
-
-drop proc if exists proc_TimBacSiRanhConflict
 GO
-create proc proc_TimBacSiRanhConflict
+drop proc if exists proc_TimBacSiRanh
+GO
+create proc proc_TimBacSiRanh
 @appointmentDate date,
 @appointmentTime time(7)
 As 
 Begin	
-	Set transaction isolation level read committed
+	Set transaction isolation level read uncommitted
 	SELECT d.dentistUserName, d.dentistFullName
 	FROM Dentist d JOIN workSchedule ws ON d.dentistUserName = ws.dentistUserName
 	WHERE ws.workingDate = @appointmentDate
