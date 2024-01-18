@@ -1,5 +1,6 @@
 drop proc if exists proc_NhapKhoThuoc
 GO
+create proc proc_NhapKhoThuoc
 @drugID int , @addNumber int 
 AS 
 Begin 
@@ -17,7 +18,7 @@ Begin
 		Update Drug set stockNumber = @newStock where drugId = @drugID
 	Commit Tran;
 End
-
+GO
 drop proc if exists proc_XuatThuoc
 GO
 create proc proc_XuatThuoc

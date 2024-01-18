@@ -24,7 +24,7 @@ BEGIN
 		Rollback Tran;
 	End Catch
 END
-
+GO
 drop proc if exists proc_NhapKhoThuoc
 GO
 create proc proc_NhapKhoThuoc 
@@ -42,7 +42,7 @@ Begin
 	declare @newStock int = @currentInstock + @addNumber;
 	Begin try 
 		Begin Tran;
-		WAITFOR DELAY '00:00:05';
+		WAITFOR DELAY '00:00:010';
 		Update Drug set stockNumber = @newStock where drugId = @drugID;
 		Commit Tran;
 	End Try

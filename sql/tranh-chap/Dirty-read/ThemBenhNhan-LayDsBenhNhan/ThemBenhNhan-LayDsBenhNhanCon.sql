@@ -65,5 +65,5 @@ AS
 BEGIN
 	
 	SELECT patientFullName , patientPhoneNumber , patientDateOfBirth, patientAddress
-	From patient 
+	From patient with (NoLock)
 END 
