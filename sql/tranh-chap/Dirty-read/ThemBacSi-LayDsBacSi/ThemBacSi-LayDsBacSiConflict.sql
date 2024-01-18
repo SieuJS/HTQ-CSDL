@@ -8,7 +8,7 @@ As
 Begin 
 	Begin tran
 	Insert into Account Values (@username, @password, 'Dentist')
-	Insert into Staff Values ( @fullName, @username , @password) 
+	Insert into Dentist Values ( @fullName, @username , @password) 
 	
 	waitfor delay '00:00:03'
 	if ( len(@password) < 6)
